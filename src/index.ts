@@ -17,5 +17,4 @@ app.listen(4000, () => {
       };
 
       console.log(placeOrder("test"));
-      console.log(placeOrder("test"));
 });
