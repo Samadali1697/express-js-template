@@ -1,20 +1,32 @@
-import express from 'express';
+import express from "express"
+import type { Request, Response } from "express"
+import { Person } from "./types/Person"
 
-const app = express();
-app.listen(4000, () => {
-    type Pizza ={
-        id: number;
-        name: string;
-        price: number;
-      }
+const app = express()
+const PORT = 4000
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`)
+})
 
-      var menu = [
-        { id: 1, name: "Margherita", price: 5.5 }
-      ];
+app.get("/api/person", (req: Request, res: Response) => {
+  let searchPerson = req.query.name as string | undefined
 
-      var placeOrder = function (pizzaName: string) {
-        return menu[0];
-      };
+  if (!searchPerson) {
+    res.status(400).json({ error: "Missing 'name' query parameter" })
+    return
+  }
 
-      console.log(placeOrder("test"));
-});
+  const people: Person[] = [
+    { id: 1, name: "Alice", address: "Berlin, Germany", isMarried: true },
+    { id: 2, name: "Bob", address: "Munich, Germany", isMarried: false }
+  ]
+
+  const person = people.find(p => p.name.toLowerCase() === searchPerson.toLowerCase())
+
+  if (!person) {
+    res.status(404).json({ error: "Person not found!" })
+    return
+  }
+
+  res.json(person)
+})
