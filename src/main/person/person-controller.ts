@@ -1,5 +1,5 @@
 import type { Request, Response } from "express"
-import express from "express";
+import express from "express"
 import { Person } from "./types/person"
 
 const router = express.Router()
@@ -12,7 +12,6 @@ const people: Person[] = [
 router.get("/person", (req: Request, res: Response) => {
   let searchPerson = req.query.name as string | undefined
 
-  
   if (!searchPerson) {
     res.status(400).json({ error: "Missing 'name' query parameter" })
     return
@@ -37,7 +36,7 @@ router.post("/person", (req: Request<Person>, res: Response) => {
 })
   
 router.delete("/person/:id", (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { id } = req.params
   
   const personIndex = people.findIndex(p => p.id === parseInt(id))
   if (personIndex === -1) {

@@ -1,10 +1,10 @@
 import request from "supertest"
 import express from "express"
-import personRoutes from "../../main/person/person-controller"
+import personController from "../../main/person/person-controller"
 
 const app = express()
 app.use(express.json())
-app.use("/api", personRoutes)
+app.use("/api", personController)
 
 describe("Person Controller", () => {
   test("GET /api/person - should return 400 if name query is missing", async () => {
@@ -42,7 +42,7 @@ describe("Person Controller", () => {
     const res = await request(app).delete("/api/person/1")
     expect(res.status).toBe(200)
     expect(res.body).toEqual([{ id: 1, name: "Alice", address: "Berlin, Germany", isMarried: true }])
-  });
+  })
 
   test("DELETE /api/person/:id - should return 404 if person not found", async () => {
     const res = await request(app).delete("/api/person/99")
