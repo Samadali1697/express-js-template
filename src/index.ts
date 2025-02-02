@@ -1,5 +1,5 @@
 import express from "express"
-import peopleRouter from "./person/PersonController";
+import peopleRouter from "./main/person/person-controller";
 
 const app = express()
 app.use(express.json())
