@@ -10,7 +10,7 @@ const people: Person[] = [
 ]
 
 router.get("/person", (req: Request, res: Response) => {
-  let searchPerson = req.query.name as string | undefined
+  const searchPerson = req.query.name as string | undefined
 
   if (!searchPerson) {
     res.status(400).json({ error: "Missing 'name' query parameter" })
