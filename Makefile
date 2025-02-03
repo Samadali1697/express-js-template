@@ -4,7 +4,7 @@ up:
 	@docker-compose up --remove-orphans
 
 build:
-	@docker-compose build --remove-orphans
+	@docker-compose build
 
 down:
 	@docker-compose down --remove-orphans

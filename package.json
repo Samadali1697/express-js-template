@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "general type script app",
   "main": "index.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "NODE_PATH=./build node build/index.js",
     "build": "tsc -p .",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon --exec ts-node src/index.ts",
     "test": "jest"
   },
   "author": "",
