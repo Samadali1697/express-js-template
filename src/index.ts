@@ -1,5 +1,6 @@
 import express from "express"
-import peopleRouter from "./main/person/person-controller";
+import peopleRouter from "./main/person/person-controller"
+import "reflect-metadata"
 
 const app = express()
 app.use(express.json())
