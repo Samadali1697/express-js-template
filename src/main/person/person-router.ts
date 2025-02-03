@@ -16,7 +16,6 @@ const PersonRouter = (personRepository: Repository<PersonEntity>) => {
     }
     
     const personsFound = await personRepository.findBy({ name: searchPerson })
-    
     if (!personsFound || personsFound.length === 0) {
       res.status(404).json({ error: "Person not found!" })
       return
@@ -30,7 +29,6 @@ const PersonRouter = (personRepository: Repository<PersonEntity>) => {
       const { name, address, isMarried } = req.body
   
       const person = await personRepository.findBy({ name: name })
-    
       if (!person || person.length !== 0) {
         res.status(409).json({ error: "Person already exists!" })
         return
@@ -53,8 +51,8 @@ const PersonRouter = (personRepository: Repository<PersonEntity>) => {
   router.delete("/person/:id", async (req: Request, res: Response) => {
     try {
       const { id } = req.params
+
       const person = await personRepository.findOneBy({ id: parseInt(id) })
-    
       if (!person) {
         res.status(404).json({ error: "Person not found!" })
         return

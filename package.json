@@ -2,12 +2,12 @@
   "name": "type-script",
   "version": "1.0.0",
   "description": "general type script app",
-  "main": "index.ts",
+  "main": "app.ts",
   "type": "commonjs",
   "scripts": {
-    "start": "NODE_PATH=./build node build/index.js",
+    "start": "NODE_PATH=./build node build/app.js",
     "build": "tsc -p .",
-    "dev": "NODE_ENV=dev nodemon --exec ts-node src/index.ts",
+    "dev": "NODE_ENV=dev nodemon --exec ts-node src/app.ts",
     "test": "jest"
   },
   "author": "",
