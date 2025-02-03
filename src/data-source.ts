@@ -1,15 +1,16 @@
 import { DataSource } from "typeorm"
+import config from "./db-config";
 import Person from "./main/domain/person"
 
 const AppDataSource = new DataSource({
     type: "postgres",
-    host: "database",
-    port: 5432,
-    username: "user",
-    password: "password",
-    database: "express-js-template",
-    synchronize: true,
-    logging: true,
+    host: config.db.host,
+    port: config.db.port,
+    username: config.db.user,
+    password: config.db.password,
+    database: config.db.name,
+    synchronize: config.db.sync,
+    logging: config.db.logging,
     entities: [Person],
     subscribers: [],
     migrations: [],

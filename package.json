@@ -7,7 +7,7 @@
   "scripts": {
     "start": "NODE_PATH=./build node build/index.js",
     "build": "tsc -p .",
-    "dev": "nodemon --exec ts-node src/index.ts",
+    "dev": "NODE_ENV=dev nodemon --exec ts-node src/index.ts",
     "test": "jest"
   },
   "author": "",
@@ -26,6 +26,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",
