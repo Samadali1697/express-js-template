@@ -15,3 +15,26 @@ services:
     ports:
       - '4000:4000'
     command: npm run dev
+    networks:
+      - project-template
+
+  database:
+    image: postgres:13
+    container_name: express-js-template-postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: express-js-template
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - project-template
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  project-template:

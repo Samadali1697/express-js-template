@@ -1,15 +1,12 @@
 import type { Request, Response } from "express"
 import express from "express"
-import { Person } from "./types/person"
+import PersonEntity from "../domain/person"
+import AppDataSource from "../../data-source"
 
 const router = express.Router()
+const personRepository = AppDataSource.getRepository(PersonEntity)
 
-const people: Person[] = [
-  { id: 1, name: "Alice", address: "Berlin, Germany", isMarried: true },
-  { id: 2, name: "Bob", address: "Munich, Germany", isMarried: false }
-]
-
-router.get("/person", (req: Request, res: Response) => {
+router.get("/person", async (req: Request, res: Response) => {
   const searchPerson = req.query.name as string | undefined
 
   if (!searchPerson) {
@@ -17,36 +14,62 @@ router.get("/person", (req: Request, res: Response) => {
     return
   }
   
-  const person = people.find(p => p.name.toLowerCase() === searchPerson.toLowerCase())
+  const personsFound = await personRepository.findBy({ name: searchPerson })
   
-  if (!person) {
+  if (!personsFound || personsFound.length === 0) {
     res.status(404).json({ error: "Person not found!" })
     return
   }
   
-  res.json(person)
+  res.json(personsFound)
 })
   
-router.post("/person", (req: Request<Person>, res: Response) => {
-  const person: Person = req.body
-  
-  people.push(person)
-  
-  res.json(person)
-})
-  
-router.delete("/person/:id", (req: Request, res: Response) => {
-  const { id } = req.params
-  
-  const personIndex = people.findIndex(p => p.id === parseInt(id))
-  if (personIndex === -1) {
-    res.status(404).json({ error: "Person not found!" })
-    return
-  }
+router.post("/person", async (req: Request, res: Response) => {
+  try {
+    const { name, address, isMarried } = req.body
 
-  const deletedPerson = people.splice(personIndex, 1)
+    const person = await personRepository.findBy({ name: name })
   
-  res.json(deletedPerson)
+    if (!person || person.length !== 0) {
+      res.status(409).json({ error: "Person already exists!" })
+      return
+    }
+
+    const personToSave: PersonEntity = new PersonEntity()
+    personToSave.name = name
+    personToSave.address = address
+    personToSave.isMarried = isMarried
+
+    const savedPerson = await personRepository.save(personToSave)
+
+    res.json(savedPerson)
+  } catch (error) {
+    console.error("Error saving person:", error)
+    res.status(500).json({ error: "Failed to save person" })
+  }
+})
+  
+router.delete("/person/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+    const person = await personRepository.findBy({ id: parseInt(id) })
+  
+    if (!person || person.length === 0) {
+      res.status(404).json({ error: "Person not found!" })
+      return
+    }
+
+    await personRepository.createQueryBuilder()
+      .delete()
+      .from(PersonEntity)
+      .where("id = :id", { id: parseInt(id) })
+      .execute()
+
+    res.json(person)
+  } catch (error) {
+    console.error("Error deleting person:", error)
+    res.status(500).json({ error: "Failed to delete person" })
+  }
 })
 
 export default router
