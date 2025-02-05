@@ -15,6 +15,11 @@ make build
 make up
 ```
 
+For creating tables using migration
+```
+make migration-create name=any-name-of-table
+```
+
 ## Endpoints
 1. Person
 
