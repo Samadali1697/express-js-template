@@ -6,6 +6,7 @@ import { Repository } from "typeorm"
 import PersonEntity from "../../main/domain/person"
 import { PersonRouter } from "../../main/person/person-router"
 import { containerPromise, createDataSource } from "../utils/postgres-container-initializer"
+import { console } from "inspector"
 
 let dataSource: DataSource
 let container: StartedPostgreSqlContainer
@@ -53,6 +54,13 @@ describe("Person API", () => {
 
     expect(res.status).toBe(409)
     expect(res.body.error).toBe("Person already exists!")
+
+    const personsFound = await personRepository.findBy({ name: "John Doe" })
+    expect(personsFound).toMatchObject([{
+      name: reqBody.name,
+      address: reqBody.address,
+      isMarried: reqBody.isMarried,
+    }])
   })
 
   it("should retrieve an existing person", async () => {
@@ -67,6 +75,9 @@ describe("Person API", () => {
 
     expect(res.status).toBe(404)
     expect(res.body.error).toBe("Person not found!")
+
+    const personsFound = await personRepository.findBy({ name: "Jane Doe" })
+    expect(personsFound).toHaveLength(0)
   })
 
   it("should delete an existing person", async () => {
@@ -78,5 +89,8 @@ describe("Person API", () => {
 
     const checkAgainRes = await request(app).get("/person?name=John Doe")
     expect(checkAgainRes.status).toBe(404)
+
+    const personsFound = await personRepository.findBy({ name: "John Doe" })
+    expect(personsFound).toHaveLength(0)
   })
 })
