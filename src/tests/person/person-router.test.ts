@@ -18,13 +18,13 @@ describe("Person Router Test", () => {
     app.use("/api", PersonRouter(mockPersonRepository as Repository<PersonEntity>))
   })
 
-  test("GET /api/person - should return 400 if name query is missing", async () => {
+  test("GET Person - should return 400 if name query is missing", async () => {
     const res = await request(app).get("/api/person")
     expect(res.status).toBe(400)
     expect(res.body).toEqual({ error: "Missing 'name' query parameter" })
   })
 
-  test("GET /api/person?name=Alice - should return the correct person", async () => {
+  test("GET Person - should return the correct person", async () => {
     (mockPersonRepository.findBy as jest.Mock).mockResolvedValue([
       {
         id: 1,
@@ -46,7 +46,7 @@ describe("Person Router Test", () => {
     ])
   })
 
-  test("POST /api/person - should return 409 if person already exists", async () => {
+  test("POST Person - should return 409 if person already exists", async () => {
     (mockPersonRepository.findBy as jest.Mock).mockResolvedValue([{ id: 1, name: "Alice" }])
 
     const res = await request(app).post("/api/person").send({
@@ -59,7 +59,7 @@ describe("Person Router Test", () => {
     expect(res.body).toEqual({ error: "Person already exists!" })
   })
 
-  test("POST /api/person - should create a new person", async () => {
+  test("POST Person - should create a new person", async () => {
     (mockPersonRepository.findBy as jest.Mock).mockResolvedValue([])
 
     mockPersonRepository.save = jest.fn().mockResolvedValue({
@@ -84,7 +84,7 @@ describe("Person Router Test", () => {
     })
   })
 
-  test("DELETE /api/person/:id - should return 404 if person not found", async () => {
+  test("DELETE Person - should return 404 if person not found", async () => {
     mockPersonRepository.findOneBy = jest.fn().mockResolvedValue(null)
 
     const res = await request(app).delete("/api/person/99")
@@ -93,7 +93,7 @@ describe("Person Router Test", () => {
     expect(res.body).toEqual({ error: "Person not found!" })
   })
 
-  test("DELETE /api/person/:id - should delete person", async () => {
+  test("DELETE Person - should delete person", async () => {
     mockPersonRepository.findOneBy = jest.fn().mockResolvedValue([{ 
       id: 1, name: "Alice", address: "Berlin", isMarried: false 
     }])

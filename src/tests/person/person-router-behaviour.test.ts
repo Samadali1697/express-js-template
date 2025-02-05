@@ -6,7 +6,6 @@ import { Repository } from "typeorm"
 import PersonEntity from "../../main/domain/person"
 import { PersonRouter } from "../../main/person/person-router"
 import { containerPromise, createDataSource } from "../utils/postgres-container-initializer"
-import { console } from "inspector"
 
 let dataSource: DataSource
 let container: StartedPostgreSqlContainer
@@ -29,7 +28,7 @@ afterAll(async () => {
   await container.stop()
 })
 
-describe("Person API", () => {
+describe("Person Router Behaviour Test", () => {
   const reqBody = { name: "John Doe", address: "123 Street", isMarried: false }
   it("should create a person", async () => {
     const res = await request(app)
