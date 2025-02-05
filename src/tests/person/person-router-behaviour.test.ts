@@ -21,7 +21,7 @@ beforeAll(async () => {
   app = express()
   app.use(express.json())
   app.use(PersonRouter(personRepository))
-}, 10000)
+})
 
 afterAll(async () => {
   await dataSource.destroy()
