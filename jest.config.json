@@ -8,6 +8,6 @@
     ]
   },
   "extensionsToTreatAsEsm": [".ts"],
-  "timeOut": 30000
+  "testTimeout": 30000
 }
   
