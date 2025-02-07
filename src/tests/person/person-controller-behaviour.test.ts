@@ -4,7 +4,7 @@ import { StartedPostgreSqlContainer } from "@testcontainers/postgresql"
 import express from "express"
 import { Repository } from "typeorm"
 import PersonEntity from "../../main/domain/person"
-import { PersonRouter } from "../../main/person/person-router"
+import { PersonController } from "../../main/person/person-controller"
 import { containerPromise, createDataSource } from "../utils/postgres-container-initializer"
 
 let dataSource: DataSource
@@ -20,7 +20,7 @@ beforeAll(async () => {
 
   app = express()
   app.use(express.json())
-  app.use(PersonRouter(personRepository))
+  app.use(PersonController(personRepository))
 })
 
 afterAll(async () => {
@@ -28,7 +28,7 @@ afterAll(async () => {
   await container.stop()
 })
 
-describe("Person Router Behaviour Test", () => {
+describe("Person Controller Behaviour Test", () => {
   const reqBody = { name: "John Doe", address: "123 Street", isMarried: false }
   it("should create a person", async () => {
     const res = await request(app)
