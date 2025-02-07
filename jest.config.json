@@ -7,6 +7,7 @@
       { "useESM": true }
     ]
   },
-  "extensionsToTreatAsEsm": [".ts"]
+  "extensionsToTreatAsEsm": [".ts"],
+  "timeOut": 30000
 }
   
