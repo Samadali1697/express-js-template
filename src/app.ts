@@ -15,9 +15,3 @@ app.listen(PORT, () => {
 AppDataSource.initialize()
   .then(() => {})
   .catch((error: any) => console.log(error))
-// AppDataSource.runMigrations()
-//   .then(() => {})
-//   .catch((error: any) => {
-//     console.log(error)
-//     AppDataSource.runMigrations()
-//   })
