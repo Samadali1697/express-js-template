@@ -10,7 +10,6 @@ export default {
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         name: process.env.DB_NAME,
-        sync: process.env.DB_SYNC === "true",
         logging: process.env.DB_LOGGING === "true",
     },
 }

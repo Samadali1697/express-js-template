@@ -2,15 +2,15 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity()
 export default class Person {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({ name: "id" })
     id!: number
 
-    @Column()
+    @Column({ name: "name" })
     name!: string
 
-    @Column()
+    @Column({ name: "address" })
     address!: string
 
-    @Column()
+    @Column({ name: "is_married" })
     isMarried!: boolean
 }

@@ -9,11 +9,11 @@ const AppDataSource = new DataSource({
     username: config.db.user,
     password: config.db.password,
     database: config.db.name,
-    synchronize: config.db.sync,
+    synchronize: false,
     logging: config.db.logging,
     entities: [Person],
     subscribers: [],
-    migrations: [],
+    migrations: [ "./src/migration/**/*.ts" ],
 })
 
 export default AppDataSource

@@ -14,7 +14,7 @@ services:
       - '4000'
     ports:
       - '4000:4000'
-    command: npm run dev
+    command: ["sh", "-c", "npm run migration:run && npm run dev"]
     networks:
       - project-template
 

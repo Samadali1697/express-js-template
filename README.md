@@ -1,5 +1,11 @@
 # express-js-template
-template project for express js
+Template project for **express js**
+
+Tech stack
+
+- Postgres with typeorm and manual migrations
+- Testcontainer for integration tests
+- Dockarized
 
 
 ## How to run the app
@@ -13,6 +19,11 @@ npm install
 make build
 
 make up
+```
+
+For creating tables using migration
+```
+make migration-create name=any-name-of-table
 ```
 
 ## Endpoints
