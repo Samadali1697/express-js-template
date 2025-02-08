@@ -8,7 +8,7 @@ export class CreatePerson1738764724501 implements MigrationInterface {
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(255),
                 address TEXT,
-                isMarried BOOLEAN
+                is_married BOOLEAN
             );
         `)
     }

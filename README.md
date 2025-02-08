@@ -1,5 +1,11 @@
 # express-js-template
-template project for express js
+Template project for **express js**
+
+Tech stack
+
+- Postgres with typeorm and manual migrations
+- Testcontainer for integration tests
+- Dockarized
 
 
 ## How to run the app
