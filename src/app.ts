@@ -1,11 +1,11 @@
 import express from "express"
-import personRouter from "./main/person/person-router"
+import PersonController from "./main/person/person-controller"
 import "reflect-metadata"
 import AppDataSource from "./data-source"
 
 const app = express()
 app.use(express.json())
-app.use("/api", personRouter)
+app.use("/api", PersonController)
 
 const PORT = 4000
 app.listen(PORT, () => {

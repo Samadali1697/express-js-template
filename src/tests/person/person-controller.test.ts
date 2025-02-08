@@ -2,9 +2,9 @@ import request from "supertest"
 import express from "express"
 import { Repository } from "typeorm"
 import PersonEntity from "../../main/domain/person"
-import { PersonRouter } from "../../main/person/person-router"
+import { PersonController } from "../../main/person/person-controller"
 
-describe("Person Router Test", () => {
+describe("Person Controller Test", () => {
   let mockPersonRepository: Partial<Repository<PersonEntity>>
   let app: express.Application
 
@@ -15,7 +15,7 @@ describe("Person Router Test", () => {
 
     app = express()
     app.use(express.json())
-    app.use("/api", PersonRouter(mockPersonRepository as Repository<PersonEntity>))
+    app.use("/api", PersonController(mockPersonRepository as Repository<PersonEntity>))
   })
 
   test("GET Person - should return 400 if name query is missing", async () => {

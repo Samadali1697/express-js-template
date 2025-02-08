@@ -4,7 +4,7 @@ import PersonEntity from "../domain/person"
 import AppDataSource from "../../data-source"
 import { Repository } from "typeorm"
 
-const PersonRouter = (personRepository: Repository<PersonEntity>) => {
+const PersonController = (personRepository: Repository<PersonEntity>) => {
   const router = express.Router()
 
   router.get("/person", async (req: Request, res: Response) => {
@@ -74,5 +74,5 @@ const PersonRouter = (personRepository: Repository<PersonEntity>) => {
   return router
 }
 
-export default PersonRouter(AppDataSource.getRepository(PersonEntity))
-export { PersonRouter }
+export default PersonController(AppDataSource.getRepository(PersonEntity))
+export { PersonController }
