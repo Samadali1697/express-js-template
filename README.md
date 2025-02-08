@@ -4,13 +4,13 @@ Template project for **express js**
 Tech stack
 
 - Postgres with typeorm and manual migrations
-- Testcontainer for integration tests
+- Testcontainers for integration tests
 - Dockarized
 
 
 ## How to run the app
 - Install docker desktop
-- Instal node (project build with v22.8.0)
+- Install node (project build with v22.8.0)
 - Run following commands
 
 ```
