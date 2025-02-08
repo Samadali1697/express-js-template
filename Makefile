@@ -10,4 +10,4 @@ down:
 	@docker-compose down --remove-orphans
 
 migration-create:
-	@npx ts-node -P ./tsconfig.json ./node_modules/typeorm/cli.js migration:create  ./src/migration/$(name)
+	@npx ts-node -P ./tsconfig.json ./node_modules/typeorm/cli.js migration:create  ./src/migrations/$(name)

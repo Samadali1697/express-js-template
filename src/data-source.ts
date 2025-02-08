@@ -13,7 +13,7 @@ const AppDataSource = new DataSource({
     logging: config.db.logging,
     entities: [Person],
     subscribers: [],
-    migrations: [ "./src/migration/**/*.ts" ],
+    migrations: [ "./src/migrations/**/*.ts" ],
 })
 
 export default AppDataSource
